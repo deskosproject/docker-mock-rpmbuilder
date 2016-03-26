@@ -1,0 +1,19 @@
+= Docker Mock Builder for DeskOS Project
+
+This is a Mock builder running inside Docker, for the DeskOS Project.
+
+== Create the Container Image
+
+----
+sudo docker build -t deskos/mock-rpmbuilder .
+----
+
+== Build an RPM
+
+----
+mkdir /var/tmp/mock
+cp -pr ./SOURCES ./SPECS /var/tmp/mock
+sudo setenforce 0
+sudo docker run --cap-add=SYS_ADMIN -it --rm -v /var/tmp/mock:/mock deskos/mock-rpmbuilder
+sudo setenforce1
+----
